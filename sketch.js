@@ -2,8 +2,10 @@ const celdas = [];
 const RETICULA = [];
 
 const azulejos = [];
-const NA = 16;
+const NA = 16; // numero de azulejos
+
 const reglas = [
+  // reglas de los bordes de cada azulejo
   {
     //Tile 0
     UP: 0,
@@ -117,9 +119,24 @@ const reglas = [
     LEFT: 0,
   },
 ];
-
+function preload() {
+  for (let i = 0; i < NA; i++) {
+    azulejos[i] = loadImage(`azulejos/tile${i}.png`);
+  }
+}
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(1080, 1080);
+
+  let opcionesI = [];
+  for (let i = 0; i < azulejos.length; i++) {
+    opcionesI.push(i);
+  }
+  for (let i = 0; i < RETICULA + RETICULA; i++) {
+    celdas[i] = {
+      colapsada: false,
+      opciones: opcionesI,
+    };
+  }
 }
 
 function draw() {
