@@ -1,5 +1,5 @@
 const celdas = [];
-const RETICULA = [];
+const RETICULA = 4;
 
 const azulejos = [];
 const NA = 16; // numero de azulejos
@@ -124,6 +124,7 @@ function preload() {
     azulejos[i] = loadImage(`azulejos/tile${i}.png`);
   }
 }
+
 function setup() {
   createCanvas(1080, 1080);
 
@@ -131,14 +132,21 @@ function setup() {
   for (let i = 0; i < azulejos.length; i++) {
     opcionesI.push(i);
   }
-  for (let i = 0; i < RETICULA + RETICULA; i++) {
+  for (let i = 0; i < RETICULA * RETICULA; i++) {
     celdas[i] = {
       colapsada: false,
       opciones: opcionesI,
     };
   }
+  celdas[8].colapsada = true;
+  celdas[3].colapsada = true;
 }
-
 function draw() {
-  circle(mouseX, mouseY, 20);
+  print(celdas);
+  // function filtrarCeldas(celda){
+  //   return celda.colapsada == false;
+
+  //  const celdasActuales = celdas.filter(filtrarCeldas);
+
+  noLoop();
 }
