@@ -1,5 +1,7 @@
 const celdas = [];
 const RETICULA = 4;
+let ancho; // altura de celda
+let alto; // anchura de celda
 
 const azulejos = [];
 const NA = 16; // numero de azulejos
@@ -127,6 +129,10 @@ function preload() {
 
 function setup() {
   createCanvas(1080, 1080);
+
+  ancho = width / RETICULA;
+  alto = height / RETICULA;
+
   let opcionesI = [];
   for (let i = 0; i < azulejos.length; i++) {
     opcionesI.push(i);
@@ -149,6 +155,7 @@ function setup() {
 }
 
 function draw() {
+  //background(111);
   const celdasDisponibles = celdas.filter((celda) => {
     return celda.colapsada == false;
   });
@@ -163,9 +170,29 @@ function draw() {
     });
 
     const celdaSeleccionada = random(celdasPorColapsar);
+    celdaSeleccionada.colapsada = true;
+
+    const opcionSeleccionada = random(celdaSeleccionada.opciones);
+    celdaSeleccionada.opciones = [opcionSeleccionada];
 
     print(celdaSeleccionada);
-  }
 
-  noLoop();
+    for (let x = 0; x < RETICULA; x++) {
+      for (let y = 0; y < RETICULA; y++) {
+        const celdaIndex = x + y * RETICULA;
+        const celdaActual = celdas[celdaIndex];
+        if (celdaActual.colapsada) {
+          image(
+            azulejos[celdaActual.opciones[0]],
+            x * ancho,
+            y * alto,
+            ancho,
+            alto
+          );
+        }
+      }
+    }
+
+    //noLoop();
+  }
 }
