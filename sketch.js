@@ -1,7 +1,5 @@
 const celdas = [];
 const RETICULA = 4;
-const ancho; //altura de celda
-const alto; //anchura de celda
 
 const azulejos = [];
 const NA = 16; // numero de azulejos
@@ -129,9 +127,6 @@ function preload() {
 
 function setup() {
   createCanvas(1080, 1080);
-  ancho = width / RETICULA;
-  alto = height / RETICULA;
-
   let opcionesI = [];
   for (let i = 0; i < azulejos.length; i++) {
     opcionesI.push(i);
@@ -143,48 +138,34 @@ function setup() {
       opciones: opcionesI,
     };
   }
+  // celdas[8].colapsada = true;
+  // celdas[3].colapsada = true;
 
- // celdas[8].colapsada = true;
- // celdas[3].colapsada = true;
-
- // celdas[12].colapsada = [5, 6, 8];
-  //celdas[4].colapsada = [4, 7, 12];
-  //celdas[1].colapsada = [6, 4, 8, 10];
- // celdas[5].colapsada = [11, 6, 4, 8, 10];
-  
+  //celdas[12].opciones = [5, 6, 8];
+  //celdas[4].opciones = [4, 7, 12];
+  //celdas[6].opciones = [9, 7, 12];
+  //celdas[1].opciones = [6, 4, 8, 10];
+  //celdas[5].opciones = [11, 6, 4, 8, 10];
 }
 
 function draw() {
   const celdasDisponibles = celdas.filter((celda) => {
-  return celda.colapsada == false;});
+    return celda.colapsada == false;
+  });
 
   if (celdasDisponibles.length > 0) {
     celdasDisponibles.sort((a, b) => {
       return a.opciones.length - b.opciones.length;
-     });
+    });
 
-     const celdasPorColapsar = celdasDisponibles.filter((celda) => {
-      return(
-      celda.opciones.length == celdasDisponibles[0].opciones.length
-     );
-  });
-  
+    const celdasPorColapsar = celdasDisponibles.filter((celda) => {
+      return celda.opciones.length == celdasDisponibles[0].opciones.length;
+    });
 
-  const celdaSeleccionada = random(celdasPorColapsar);
-  celdaSeleccionada.colapsada = true;
+    const celdaSeleccionada = random(celdasPorColapsar);
 
-
-  const opcionSeleccionada = random(celdaSeleccionada.opciones);
-
-  celdaSelecionada.opciones = [opcionSeleccionada];
-
-  print(celdasActuales);
-
-  for(let x =0;){
-    
+    print(celdaSeleccionada);
   }
 
-  }
-  
   noLoop();
 }
