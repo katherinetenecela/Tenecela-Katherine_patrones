@@ -175,13 +175,17 @@ function draw() {
     const opcionSeleccionada = random(celdaSeleccionada.opciones);
     celdaSeleccionada.opciones = [opcionSeleccionada];
 
-    print(celdaSeleccionada);
+    // print(celdaSeleccionada);
 
     for (let x = 0; x < RETICULA; x++) {
       for (let y = 0; y < RETICULA; y++) {
         const celdaIndex = x + y * RETICULA;
         const celdaActual = celdas[celdaIndex];
         if (celdaActual.colapsada) {
+          const indiceDeAzulejo = celdaActual.opciones[0];
+          const reglasAcuales = reglas[indiceDeAzulejo];
+          //print(reglasAcuales);
+
           image(
             azulejos[celdaActual.opciones[0]],
             x * ancho,
@@ -189,10 +193,52 @@ function draw() {
             ancho,
             alto
           );
+
+          //Cambiar entropia UP
+          if (y > 0) {
+            const indiceUP = x + (y - 1) * RETICULA;
+            const celdaUP = celdas[indiceUP];
+            if (!celdaUP.colapsada) {
+              for (let i = 0; i < celdaUP.opciones.length; i++) {
+                if (
+                  reglasAcuales["UP"] == reglas[celdaUP.opciones[i]]["DOWN"]
+                ) {
+                  const celdaCompatible = celdaUP.opciones;
+                  print(celdaCompatible);
+                }
+              }
+            }
+          }
+
+          //Cambiar entropia RIGHT
+          if (x < RETICULA - 1) {
+            const indiceRIGHT = x + 1 + y * RETICULA;
+            const celdaRIGHT = celdas[indiceRIGHT];
+            if (!celdaRIGHT.colapsada) {
+            }
+          }
+
+          //Cambiar entropia DOWN
+          if (y < RETICULA - 1) {
+            const indiceDOWN = x + (y + 1) * RETICULA;
+            const celdaDOWN = celdas[indiceDOWN];
+            if (!celdaDOWN.colapsada) {
+            }
+          }
+
+          //Cambiar entropia LEFT
+          if (x > 0) {
+            const indiceLEFT = x - 1 + y * RETICULA;
+            const celdaLEFT = celdas[indiceLEFT];
+            if (!celdaLEFT.colapsada) {
+            }
+          }
+        } else {
+          strokeWeight(6);
+          rect(x * ancho, y * alto, ancho, alto);
         }
       }
     }
-
-    //noLoop();
+    noLoop();
   }
 }
