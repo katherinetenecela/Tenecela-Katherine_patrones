@@ -4,7 +4,6 @@ let ancho; // altura de celda
 let alto; // anchura de celda
 
 const azulejos = [];
-const NA = 16; // numero de azulejos
 
 let opcionesI = [];
 
@@ -123,6 +122,8 @@ const reglas = [
     LEFT: 0,
   },
 ];
+const NA = reglas.length; // numero de azulejos
+
 function preload() {
   for (let i = 0; i < NA; i++) {
     azulejos[i] = loadImage(`azulejos/tile${i}.png`);
@@ -156,8 +157,12 @@ function setup() {
 }
 
 function draw() {
-  background(111);
-  const celdasDisponibles = celdas.filter((celda) => {
+  // background(111);
+  const celdasConOpciones = celdas.filter((celda) => {
+    return celda.opciones.length > 0;
+  });
+
+  const celdasDisponibles = celdasConOpciones.filter((celda) => {
     return celda.colapsada == false;
   });
 
@@ -182,6 +187,12 @@ function draw() {
       for (let y = 0; y < RETICULA; y++) {
         const celdaIndex = x + y * RETICULA;
         const celdaActual = celdas[celdaIndex];
+
+        if (celdaActual.opciones.length < 1) {
+          fill(255, 100, 100);
+          rect(x * ancho, y * alto, ancho, alto);
+        }
+
         if (celdaActual.colapsada) {
           const indiceDeAzulejo = celdaActual.opciones[0];
           const reglasActuales = reglas[indiceDeAzulejo];
@@ -230,12 +241,12 @@ function draw() {
     }
     //noLoop();
   } else {
-    for (let i = 0; i < RETICULA * RETICULA; i++) {
-      celdas[i] = {
-        colapsada: false,
-        opciones: opcionesI,
-      };
-    }
+    // for (let i = 0; i < RETICULA * RETICULA; i++) {
+    //celdas[i] = {
+    //colapsada: false,
+    //opciones: opcionesI,
+    // };
+    // }
   }
 }
 
