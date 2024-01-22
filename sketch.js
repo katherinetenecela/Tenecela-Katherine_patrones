@@ -90,7 +90,7 @@ const reglas = [
     //Tile 11
     UP: 1,
     RIGHT: 1,
-    DOWN: 1,
+    DOWN: 0,
     LEFT: 1,
   },
   {
@@ -104,7 +104,7 @@ const reglas = [
     //Tile 13
     UP: 0,
     RIGHT: 0,
-    DOWN: 1,
+    DOWN: 0,
     LEFT: 1,
   },
   {
@@ -119,6 +119,13 @@ const reglas = [
     UP: 1,
     RIGHT: 0,
     DOWN: 0,
+    LEFT: 0,
+  },
+  {
+    //Tile 16
+    UP: 0,
+    RIGHT: 0,
+    DOWN: 1,
     LEFT: 0,
   },
 ];
@@ -241,12 +248,12 @@ function draw() {
     }
     //noLoop();
   } else {
-    // for (let i = 0; i < RETICULA * RETICULA; i++) {
+    //for (let i = 0; i < RETICULA * RETICULA; i++) {
     //celdas[i] = {
     //colapsada: false,
     //opciones: opcionesI,
-    // };
-    // }
+    //};
+    //}
   }
 }
 
