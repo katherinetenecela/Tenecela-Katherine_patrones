@@ -6,6 +6,8 @@ let alto; // anchura de celda
 const azulejos = [];
 const NA = 16; // numero de azulejos
 
+let opcionesI = [];
+
 const reglas = [
   // reglas de los bordes de cada azulejo
   {
@@ -133,7 +135,6 @@ function setup() {
   ancho = width / RETICULA;
   alto = height / RETICULA;
 
-  let opcionesI = [];
   for (let i = 0; i < azulejos.length; i++) {
     opcionesI.push(i);
   }
@@ -155,7 +156,7 @@ function setup() {
 }
 
 function draw() {
-  //background(111);
+  background(111);
   const celdasDisponibles = celdas.filter((celda) => {
     return celda.colapsada == false;
   });
@@ -186,7 +187,6 @@ function draw() {
           const reglasActuales = reglas[indiceDeAzulejo];
           //print(reglasActuales);
           image(azulejos[indiceDeAzulejo], x * ancho, y * alto, ancho, alto);
-
           //Cambiar entropia UP
           if (y > 0) {
             const indiceUP = x + (y - 1) * RETICULA;
@@ -223,12 +223,19 @@ function draw() {
             }
           }
         } else {
-          strokeWeight(6);
-          rect(x * ancho, y * alto, ancho, alto);
+          //strokeWeight(6);
+          //rect(x * ancho, y * alto, ancho, alto);
         }
       }
     }
     //noLoop();
+  } else {
+    for (let i = 0; i < RETICULA * RETICULA; i++) {
+      celdas[i] = {
+        colapsada: false,
+        opciones: opcionesI,
+      };
+    }
   }
 }
 
